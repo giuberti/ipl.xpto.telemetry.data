@@ -1,5 +1,5 @@
 from models.entities import TelemetryData, GeoData
-from models.repositories import BaseRepository, DataRepository
+from models.repositories import BaseRepository, TelemetryDataRepository, GeoDataRepository
 from typing import List, Type
 
 
@@ -27,11 +27,11 @@ class BaseService:
 class GeoDataService (BaseService):
 
     def __init__(self):
-        self.repository = DataRepository()
+        self.repository = GeoDataRepository()
         self.entity = GeoData
 
 class TelemetryDataService (BaseService):
 
     def __init__(self):
-        self.repository = DataRepository()
+        self.repository = TelemetryDataRepository()
         self.entity = TelemetryData

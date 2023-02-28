@@ -692,9 +692,6 @@ components:
     CreateTelemetryDataResponse:
       required:
       - data_id
-      - type
-      - value
-      - vehicle_id
       type: object
       properties:
         data_id:

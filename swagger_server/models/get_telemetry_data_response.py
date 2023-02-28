@@ -39,7 +39,7 @@ class GetTelemetryDataResponse(Model):
         }
 
         self.attribute_map = {
-            'data_id': 'data_id',
+            'data_id': 'dataId',
             'vehicle_id': 'vehicle_id',
             'date_time': 'date_time',
             'type': 'type',

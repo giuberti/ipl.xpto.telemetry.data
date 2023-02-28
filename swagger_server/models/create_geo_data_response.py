@@ -26,7 +26,7 @@ class CreateGeoDataResponse(Model):
         }
 
         self.attribute_map = {
-            'data_id': 'data_id'
+            'data_id': 'dataId'
         }
         self._data_id = data_id
 

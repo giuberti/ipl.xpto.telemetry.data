@@ -1,5 +1,5 @@
 from config import db
-from models.entities import Data
+from models.entities import GeoData, TelemetryData
 from typing import List, Type
 
 
@@ -31,9 +31,16 @@ class BaseRepository:
         return entity
 
 
-class DataRepository (BaseRepository):
+class TelemetryDataRepository (BaseRepository):
 
     def __init__(self):
         self.id_attr_name = 'data_id'
         self.db = db
-        self.entity_model = Data
+        self.entity_model = TelemetryData
+
+class GeoDataRepository (BaseRepository):
+
+    def __init__(self):
+        self.id_attr_name = 'data_id'
+        self.db = db
+        self.entity_model = GeoData

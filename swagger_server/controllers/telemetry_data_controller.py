@@ -41,6 +41,7 @@ def create_telemetry_data(body):  # noqa: E501
         
         entity = TelemetryData(data_id=None, date_time=body.date_time, vehicle_id=body.vehicle_id, type=body.type, value=body.value)
         entity = telemetrydata_service.save(entity)
+        logging.info(json.loads(telemetrydata_schema.dumps(entity)))
         response = CreateTelemetryDataResponse.from_dict(json.loads(telemetrydata_schema.dumps(entity)))
         response_code = 201
     
