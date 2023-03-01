@@ -3,6 +3,7 @@ import six
 import json
 from custom_logging import logging
 
+from business.vehicle_business import VehicleBusiness
 from models.entities import GeoData
 from services.services import GeoDataService
 from schemas.schemas import GeoDataSchema
@@ -43,6 +44,9 @@ def create_geo_data(body):  # noqa: E501
         if body.latitude is None or body.longitude is None:
             raise ErrorResponse(code="CST006", message="Invalid Request Payload", type=ErrorTypeEnum.BUSINESS, details=f"Missing required geodata")
         
+        if VehicleBusiness.verify(body.vehicle_id) is False:
+            raise EntityNotFound(code="CST007", message="Invalid Vehicle provided", details=f"Vehicle ID {body.vehicle_id} does not exist")
+     
         entity = GeoData(data_id=None, date_time=body.date_time, vehicle_id=body.vehicle_id, latitude=body.latitude, longitude=body.longitude, altimeter=body.altimeter)
         entity = geodata_service.save(entity)
         response = CreateGeoDataResponse.from_dict(json.loads(geodata_schema.dumps(entity)))

@@ -3,6 +3,7 @@ import six
 import json
 from custom_logging import logging
 
+from business.vehicle_business import VehicleBusiness
 from models.entities import TelemetryData
 from services.services import TelemetryDataService
 from schemas.schemas import TelemetryDataSchema
@@ -38,6 +39,9 @@ def create_telemetry_data(body):  # noqa: E501
             raise InvalidPayload(code="CST002", message="Invalid Request Payload",
                                  details=f"Request payload is not a JSON valid")
         body = CreateTelemetryDataRequest.from_dict(connexion.request.get_json())  # noqa: E501
+        logging.info(body)
+        if VehicleBusiness.verify(body.vehicle_id) is False:
+            raise EntityNotFound(code="CST007", message="Invalid Vehicle provided", details=f"Vehicle ID {body.vehicle_id} does not exist")
         
         entity = TelemetryData(data_id=None, date_time=body.date_time, vehicle_id=body.vehicle_id, type=body.type, value=body.value)
         entity = telemetrydata_service.save(entity)
